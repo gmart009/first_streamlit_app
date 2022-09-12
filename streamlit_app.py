@@ -48,9 +48,9 @@ streamlit.dataframe(my_data_row)
 fruit_choice1 = streamlit.text_input('What fruit would you like information about?','banana')
 streamlit.write('The user entered ', fruit_choice1)
 
-fruits_to_show1 = my_fruit_list.loc[fruit_choice1]
+#fruits_to_show1 = my_fruit_list.loc[fruit_choice1]
 # Display the table on the page.
-streamlit.dataframe(fruits_to_show1)
+#streamlit.dataframe(fruits_to_show1)
 
 #This will not work correctly, but just go with it for now
 my_cur.execute("INSERT INTO PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST VALUES('from streamlit')")
