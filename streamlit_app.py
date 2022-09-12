@@ -1,6 +1,8 @@
 import streamlit
 import pandas
+import requests
 import snowflake.connector
+from urllib.error import URLError
 
 
 
@@ -24,7 +26,7 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 streamlit.dataframe(fruits_to_show)
 
 streamlit.header("Fruityvice Fruit Advice!")
-import requests
+
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
 
 fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
@@ -45,6 +47,10 @@ streamlit.text("Hello from Snowflake:")
 streamlit.dataframe(my_data_row)
 fruit_choice1 = streamlit.text_input('What fruit would you like information about?','banana')
 streamlit.write('The user entered ', fruit_choice1)
+
+fruits_to_show1 = my_fruit_list.loc[fruit_choice1]
+# Display the table on the page.
+streamlit.dataframe(fruits_to_show1)
 
 #This will not work correctly, but just go with it for now
 my_cur.execute("INSERT INTO PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST VALUES('from streamlit')")
