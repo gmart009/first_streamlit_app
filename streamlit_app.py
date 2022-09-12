@@ -25,28 +25,16 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # Display the table on the page.
 streamlit.dataframe(fruits_to_show)
 
+
 streamlit.header("Fruityvice Fruit Advice!")
-
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
-streamlit.write('The user entered ', fruit_choice)
-
-# write your own comment -what does the next line do? 
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-# write your own comment - what does this do?
-streamlit.dataframe(fruityvice_normalized)
-
-
-streamlit.text("FruityVice Fruit Advice")
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("SELECT * FROM PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST")
 my_data_row = my_cur.fetchall()
 streamlit.text("Hello from Snowflake:")
 streamlit.dataframe(my_data_row)
-fruit_choice1 = streamlit.text_input('What fruit would you like information about?','banana')
-streamlit.write('The user entered ', fruit_choice1)
+fruit_choice = streamlit.text_input('What fruit would you like information about?','banana')
+streamlit.write('The user entered ', fruit_choice)
 
 #fruits_to_show1 = my_fruit_list.loc[fruit_choice1]
 # Display the table on the page.
