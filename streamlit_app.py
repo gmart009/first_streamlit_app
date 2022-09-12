@@ -27,13 +27,14 @@ streamlit.dataframe(fruits_to_show)
 
 
 streamlit.header("Fruityvice Fruit Advice!")
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("SELECT * FROM PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST")
-my_data_row = my_cur.fetchall()
-fruit_choice = streamlit.text_input('What fruit would you like information about?','banana')
-streamlit.write('The user entered ', fruit_choice)
 
+try:
+  if not fruit_choice:
+    streamlit.error("Please select a fruite to get information")
+  else:
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    streamlit.dataframe(fruityvice_normalized)
+except URLError as e:
+   streamlit.error()
 
-#This will not work correctly, but just go with it for now
-my_cur.execute("INSERT INTO PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST VALUES('from streamlit')")
